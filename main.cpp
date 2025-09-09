@@ -53,18 +53,46 @@ private:
     bool systemShutdown;
     bool lcdEnabled;
     int lcdHandle;
+    int cycleCount;
+    const std::string cycleFile = "cycle_count.txt";
     std::chrono::steady_clock::time_point lastLcdUpdate;
     std::pair<std::string, std::string> currentLcdMessage;
     static const int LCD_DISPLAY_TIME = 3; // seconds
-    static const int WATER_DURATION = 30; // seconds
+    static const int WATER_DURATION = 20; // seconds
 
 public:
     IrrigationSystem() : systemShutdown(false), lcdEnabled(false), lcdHandle(-1) {
         currentLcdMessage = std::make_pair("", "");
         lastLcdUpdate = std::chrono::steady_clock::now();
+        loadCycleCount();
+    }
+
+    void loadCycleCount() {
+        std::ifstream in(cycleFile);
+        if (in.is_open()) {
+            in >> cycleCount;
+            in.close();
+        } else {
+            cycleCount = 0;
+        }
+    }
+
+    void saveCycleCount() {
+        std::ofstream out(cycleFile, std::ios::trunc);
+        if (out.is_open()) {
+            out << cycleCount;
+            out.close();
+        }
     }
 
     bool initialize() {
+        // If maintenance required, block startup
+        if (cycleCount >= 3) {
+            logMessage("⚠ Maintenance required! System locked.");
+            lcdMessage("Maintenance Req", "Service Needed", true);
+            return false;
+        }
+
         // Initialize wiringPi
         if (wiringPiSetup() == -1) {
             std::cerr << "Failed to initialize wiringPi" << std::endl;
@@ -316,8 +344,19 @@ public:
                 if (remaining <= 0) {
                     logMessage("30s watering period finished");
                     lcdMessage("30s Watering Done", "System Idle", true);
+
+                    cycleCount++;
+                    saveCycleCount();
+                    logMessage("Cycle count updated to " + std::to_string(cycleCount));
+
+                    if (cycleCount >= 3) {
+                        logMessage("⚠ Maintenance required after 3 cycles!");
+                        lcdMessage("Maintenance Req", "Service Needed", true);
+                    }
+
                     break;
                 }
+
 
                 // Check emergency switch
                 if (checkEmergencySwitch()) {
