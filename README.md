@@ -33,10 +33,12 @@ sudo ./smart_i
 
 
 ## Project Structure
+```
 smart_i/
 ├── main.cpp          # Core logic for reading sensors and controlling pump
 ├── cycle_count.txt   # Stores the number of watering cycles for maintenance
 └── README.md         # Project documentation
+```
 
 
 ## 📜 License
