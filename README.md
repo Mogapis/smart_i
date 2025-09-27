@@ -17,7 +17,7 @@ git clone https://github.com/Mogapis/smart_i.git
 cd smart_i
 
 ### 2. Compile
-
+g++ -o smart_i main.cpp -lwiringPi -std=c++11 -pthread
 
 ### 3. Run
 sudo ./smart_i
