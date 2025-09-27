@@ -1,5 +1,5 @@
 # smart_irrigation
-smart_irrigation is a C++-based smart watering system for Raspberry Pi. It automates plant irrigation by monitoring environmental conditions (like soil moisture, temperature, or humidity) and controlling a water pump through GPIO pins.
+smart_irrigation is a C++-based smart watering system for Raspberry Pi. It automates plant irrigation by monitoring environmental conditions (like soil moisture) and controlling a water pump through GPIO pins.
 
 ✨ Features
 	•	🌡️ Reads sensor data (soil moisture, DHT22, etc.)
@@ -10,7 +10,7 @@ smart_irrigation is a C++-based smart watering system for Raspberry Pi. It autom
 🛠 Tech Stack
 	•	Language: C++
 	•	Platform: Raspberry Pi OS
-	•	Hardware: Raspberry Pi, soil moisture sensor, relay module, switch, water pump, lcd display and led light
+	•	Hardware: Raspberry Pi, soil moisture sensor, PIR sensor,relay module, switch, water pump, servo motor, lcd display and led light
 
 ### 1. Clone the repo
 git clone https://github.com/Mogapis/smart_i.git
