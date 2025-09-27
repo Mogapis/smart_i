@@ -19,7 +19,7 @@ cd smart_i
 ### 2. Compile
 
 
-### 3. Rum
+### 3. Run
 sudo ./smart_i
 
 
