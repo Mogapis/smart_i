@@ -22,10 +22,14 @@ git clone https://github.com/Mogapis/smart_i.git
 cd smart_i
 ```
 ### 2. Compile
+```bash
 g++ -o smart_i main.cpp -lwiringPi -std=c++11 -pthread
+```
 
 ### 3. Run
+```bash
 sudo ./smart_i
+```
 
 
 ## Project Structure
