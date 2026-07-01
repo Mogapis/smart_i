@@ -1,5 +1,5 @@
 #include <iostream>
-#include <fstream> // for file operations to
+#include <fstream>
 #include <string>
 #include <chrono>
 #include <thread>
@@ -304,7 +304,7 @@ public:
             // Turn alert LED ON
             digitalWrite(ALERT_LED, HIGH);
             
-            return true; // Pause only, don't kill system
+            return true;
         } else {
             digitalWrite(ALERT_LED, LOW);
             return false;
@@ -329,8 +329,6 @@ public:
     }
 
     void setServoPosition(int position) {
-        // Convert position (-1, 0, 1) to PWM values
-        // -1 = 50 (0.5ms), 0 = 150 (1.5ms), 1 = 250 (2.5ms)
         int pwmValue;
         if (position == -1) {
             pwmValue = SERVO_LEFT;  // Left position
